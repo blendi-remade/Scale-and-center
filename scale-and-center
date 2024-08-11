@@ -1,11 +1,32 @@
 from PIL import Image
 
 class ScaleAndCenterNode:
+    """
+    A node that scales an image based on its bounding box dimensions and centers it on a 1024x1024 white canvas.
+
+    Class methods
+    -------------
+    INPUT_TYPES (dict): 
+        Defines the input parameters for the node.
+    
+    Attributes
+    ----------
+    RETURN_TYPES (`tuple`): 
+        Specifies the type of each element in the output tuple.
+    FUNCTION (`str`):
+        The entry-point method for the node.
+    CATEGORY (`str`):
+        The category the node should appear in the UI.
+    """
+    
+    def __init__(self):
+        pass
+
     @classmethod
     def INPUT_TYPES(s):
         return {
             "required": {
-                "image": ("IMAGE",), 
+                "image": ("IMAGE",),
                 "x": ("INT", {"default": 0, "min": 0, "max": 1024, "step": 1}),
                 "y": ("INT", {"default": 0, "min": 0, "max": 1024, "step": 1}),
                 "width": ("INT", {"default": 512, "min": 1, "max": 1024, "step": 1}),
@@ -15,7 +36,6 @@ class ScaleAndCenterNode:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "scale_and_center"
-
     CATEGORY = "image/process"
 
     def scale_and_center(self, image, x, y, width, height):
@@ -40,10 +60,12 @@ class ScaleAndCenterNode:
 
         return (canvas,)
 
+# Register the node with ComfyUI
 NODE_CLASS_MAPPINGS = {
     "ScaleAndCenterNode": ScaleAndCenterNode,
 }
 
+# Optionally, you can add a human-friendly display name for the node
 NODE_DISPLAY_NAME_MAPPINGS = {
     "ScaleAndCenterNode": "Scale and Center Node"
 }
